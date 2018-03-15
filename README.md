@@ -1,0 +1,2 @@
+# MediatR.EventAggregator
+
