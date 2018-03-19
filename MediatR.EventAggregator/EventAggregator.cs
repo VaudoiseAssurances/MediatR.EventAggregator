@@ -25,6 +25,7 @@ namespace MediatR.EventAggregator
 
         /// <inheritdoc />
         public Task PublishAsync<TEvent>(TEvent ev)
+            where TEvent : IRequest
         {
             var notification = ev as INotification;
             if (notification != null)
@@ -58,6 +59,7 @@ namespace MediatR.EventAggregator
 
         /// <inheritdoc cref="IEventDispatcher.Subscribe{TEvent}(System.Action{TEvent})"/>
         public void Subscribe<TEvent>(Action<TEvent> callback)
+            where TEvent : IRequest
         {
             var type = this.AddNewTEventToCallbacks<TEvent>();
 
@@ -66,6 +68,7 @@ namespace MediatR.EventAggregator
 
         /// <inheritdoc cref="IEventDispatcher.Subscribe{TEvent}(System.Action{TEvent})"/>
         public void Subscribe<TEvent>(Action<TEvent, object> callback, object state)
+            where TEvent : IRequest
         {            
             var type = this.AddNewTEventToCallbacks<TEvent>();
 
@@ -73,7 +76,7 @@ namespace MediatR.EventAggregator
         }
 
         /// <inheritdoc cref="IEventDispatcher.Unsubscribe{TEvent}(System.Action{TEvent})"/>
-        public void Unsubscribe<TEvent>(Action<TEvent> callback)
+        public void Unsubscribe<TEvent>(Action<TEvent> callback) where TEvent : IRequest
         {
             if (callback == null)
             {
@@ -84,7 +87,7 @@ namespace MediatR.EventAggregator
         }
 
         /// <inheritdoc />
-        public void Unsubscribe<TEvent>(Action<TEvent, object> callback)
+        public void Unsubscribe<TEvent>(Action<TEvent, object> callback) where TEvent : IRequest
         {
             if (callback == null)
             {
