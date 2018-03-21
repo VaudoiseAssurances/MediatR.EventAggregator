@@ -16,15 +16,15 @@ namespace MediatR.EventAggregator
         /// <typeparam name="TEvent">
         /// The event type
         /// </typeparam>
-        void Subscribe<TEvent>(Action<TEvent> callback);
+        void Subscribe<TEvent>(Action<TEvent> callback) where TEvent : IRequest;
 
         /// <summary>
         /// Unsubscribe an event callback
         /// </summary>
         /// <typeparam name="TEvent">The event type</typeparam>
         /// <param name="callback">the callback to remove</param>
-        void Unsubscribe<TEvent>(Action<TEvent> callback);
-        
+        void Unsubscribe<TEvent>(Action<TEvent> callback) where TEvent : IRequest;
+
         /// <summary>
         /// Subscribe a callback to an event
         /// </summary>
@@ -37,13 +37,13 @@ namespace MediatR.EventAggregator
         /// <typeparam name="TEvent">
         /// The event type
         /// </typeparam>
-        void Subscribe<TEvent>(Action<TEvent, object> callback, object state);
+        void Subscribe<TEvent>(Action<TEvent, object> callback, object state) where TEvent : IRequest;
 
         /// <summary>
         /// Unsubscribe an event callback
         /// </summary>
         /// <typeparam name="TEvent">The event type</typeparam>
         /// <param name="callback">the callback to remove</param>
-        void Unsubscribe<TEvent>(Action<TEvent, object> callback);
+        void Unsubscribe<TEvent>(Action<TEvent, object> callback) where TEvent : IRequest;
     }
 }

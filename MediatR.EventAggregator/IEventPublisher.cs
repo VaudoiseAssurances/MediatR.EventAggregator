@@ -13,7 +13,7 @@ namespace MediatR.EventAggregator
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="ev">The event.</param>
         /// <returns>A promise of completion</returns>
-        Task PublishAsync<TEvent>(TEvent ev);
+        Task PublishAsync<TEvent>(TEvent ev) where TEvent : IRequest;
 
         /// <summary>
         /// Publishes the specified event, expecting an asynchronous response.
