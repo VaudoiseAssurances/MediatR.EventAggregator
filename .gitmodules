@@ -1,0 +1,3 @@
+[submodule "dotnet-versioning-scripts"]
+	path = dotnet-versioning-scripts
+	url = https://github.com/VaudoiseAssurances/dotnet-versioning-scripts.git
