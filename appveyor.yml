@@ -11,6 +11,7 @@ branches:
   - develop
   - master
 environment:
+  nugetScriptsFolder: .\dotnet-versioning-scripts\NuGet
   ciScriptsFolder: .\dotnet-ci-scripts\dotnet-versioning
   packageName: MediatR.EventAggregator
   csprojPath: .\MediatR.EventAggregator\MediatR.EventAggregator.csproj
@@ -23,7 +24,7 @@ before_build:
 - dotnet restore "./MediatR.EventAggregator.sln"
 - cmd: powershell %ciScriptsFolder%/define-version-variables-appveyor.ps1 %csprojPath% %ciScriptsFolder% %packageName% %APPVEYOR_REPO_BRANCH%
 after_build:
-- cmd: powershell %ciScriptsFolder%/dotnet-pack-optionalsuffix.ps1 ./ %buildConfig% "%APPVEYOR_BUILD_FOLDER%/artifacts" %suffix%
+- cmd: powershell %nugetScriptsFolder%/dotnet-pack-optionalsuffix.ps1 ./ %buildConfig% "%APPVEYOR_BUILD_FOLDER%/artifacts" %suffix%
 artifacts:
 - path: '**/MediatR.EventAggregator.*.nupkg '
   name: NuGet_pkg
