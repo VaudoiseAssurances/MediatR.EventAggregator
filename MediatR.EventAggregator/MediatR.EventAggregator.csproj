@@ -1,18 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>MediatR.EventAggregator</PackageId>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Company>Vaudoise Assurances</Company>
-    <Authors>Vaudoise Assurances</Authors>
     <owners>ylerjen</owners>
-    <Copyright>Vaudoise Assurances</Copyright>
-    <RepositoryUrl>https://github.com/vaudoiseassurances/mediatr.eventaggregator.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <NeutralLanguage>en</NeutralLanguage>
+    <Authors>Vaudoise Assurances</Authors>
+    <Company>Vaudoise Assurances</Company>
     <Product>MediatR.EventAggregator</Product>
     <Description>EventAggregator for the MediatR package</Description>
+    <Copyright>Vaudoise Assurances</Copyright>
     <PackageProjectUrl>https://github.com/VaudoiseAssurances/MediatR.EventAggregator</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/vaudoiseassurances/mediatr.eventaggregator.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageTags>MediatR, EventAggregator</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <AssemblyVersion>0.0.2</AssemblyVersion>
     <VersionPrefix>$(AssemblyVersion)</VersionPrefix>
