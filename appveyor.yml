@@ -1,0 +1,29 @@
+version: Build-{build}
+image: Visual Studio 2017
+build_script:
+- cmd: dotnet build %APPVEYOR_BUILD_FOLDER%/src /p:Configuration=%buildConfig%;VersionSuffix=%suffix%
+skip_commits:
+  files:
+    - docs/*
+    - readme.md
+branches:
+  only:
+  - develop
+  - master
+environment:
+  versioningScriptsFolder: .\dotnet-versioning-scripts\dotnet-versioning
+  packageName: MediatR.EventAggregator
+  csprojPath: .\MediatR.EventAggregator\MediatR.EventAggregator.csproj
+  repoNuGet: https://www.nuget.org/api/v2
+  repoNuGetPackage: $(repoNuGet)/package
+  buildConfig: Release
+install:
+- git submodule update --init --recursive
+before_build:
+- dotnet restore "./MediatR.EventAggregator.sln"
+- cmd: powershell %versioningScriptsFolder%/define-version-variables-appveyor.ps1 %csprojPath% %versioningScriptsFolder% %packageName% %APPVEYOR_REPO_BRANCH%
+after_build:
+- cmd: powershell %versioningScriptsFolder%/dotnet-pack-optionalsuffix.ps1 ./src %buildConfig% "%APPVEYOR_BUILD_FOLDER%/artifacts" %suffix%
+artifacts:
+- path: '**/MediatR.EventAggregator.*.nupkg '
+  name: NuGet_pkg
