@@ -29,3 +29,25 @@ after_build:
 artifacts:
 - path: '**/MediatR.EventAggregator.*.nupkg '
   name: NuGet_pkg
+deploy:
+- provider: NuGet
+  server: $(repoNuGetPackage)
+  artifact: NuGet_pkg
+  api_key:
+    secure: uBphca4OZ4WuDCPtfgBWnGvqvQOirDAq+ErQubkiMwUBVnKfETzoMxsNS/ofyTZJ
+  on:
+    branch: develop
+- provider: NuGet
+  server: $(repoNuGetPackage)
+  artifact: NuGet_pkg
+  api_key:
+    secure: uBphca4OZ4WuDCPtfgBWnGvqvQOirDAq+ErQubkiMwUBVnKfETzoMxsNS/ofyTZJ
+  on:
+    branch: master
+  # Note on the NuGet deploy provider : 
+  # Nuget takes a few minutes to index the published packages. If two builds are executed in a short time,
+  # the subsequent packages will be built, but the publication to NuGet will fail, and the build will still be green on AppVeyor.
+  # In order to fix this, one option would be to fail the build if a package could not be pushed 
+  # because one already exists with the specified version.
+  # In order to do so, we would need to get rid of the deploy provider, and do it all by hand. It shouldn't be too much work.
+
