@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace MediatR.EventAggregator
 {
+    using System.Threading;
+
     public class EventAggregator : IEventAggregator
     {
         private readonly IMediator mediator;
@@ -24,21 +26,23 @@ namespace MediatR.EventAggregator
         }
 
         /// <inheritdoc />
-        public Task PublishAsync<TEvent>(TEvent ev)
+        public Task PublishAsync<TEvent>(TEvent ev, CancellationToken cancellationToken = default(CancellationToken))
             where TEvent : IRequest
         {
             var notification = ev as INotification;
             if (notification != null)
             {
-                this.mediator.Publish(notification);
+                this.mediator.Publish(notification, cancellationToken);
             }
 
             Task sendTask = null;
             var request = ev as IRequest;
             if (request != null)
             {
-                sendTask = this.mediator.Send(request);
+                sendTask = this.mediator.Send(request, cancellationToken);
             }
+
+            cancellationToken.ThrowIfCancellationRequested();
       
             this.HandleCallbacks(ev);
 
@@ -47,10 +51,12 @@ namespace MediatR.EventAggregator
 
         // Note: can we make it more elegant to use , with better type inference ?
         /// <inheritdoc />
-        public Task<TResponse> PublishAsync<TResponse, TEvent>(TEvent ev) 
+        public Task<TResponse> PublishAsync<TResponse, TEvent>(TEvent ev, CancellationToken cancellationToken = default(CancellationToken)) 
             where TEvent : IRequest<TResponse>
         {
-            var sendTask = this.mediator.Send(ev);
+            var sendTask = this.mediator.Send(ev, cancellationToken);
+
+            cancellationToken.ThrowIfCancellationRequested();
 
             this.HandleCallbacks(ev);
 

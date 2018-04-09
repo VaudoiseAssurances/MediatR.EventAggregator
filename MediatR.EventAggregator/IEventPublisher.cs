@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 
 namespace MediatR.EventAggregator
 {
+    using System.Threading;
+
     /// <summary>
     /// A service providing mechanisms to publish events.
     /// </summary>
@@ -13,7 +15,7 @@ namespace MediatR.EventAggregator
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="ev">The event.</param>
         /// <returns>A promise of completion</returns>
-        Task PublishAsync<TEvent>(TEvent ev) where TEvent : IRequest;
+        Task PublishAsync<TEvent>(TEvent ev, CancellationToken cancellationToken = default(CancellationToken)) where TEvent : IRequest;
 
         /// <summary>
         /// Publishes the specified event, expecting an asynchronous response.
@@ -24,6 +26,6 @@ namespace MediatR.EventAggregator
         /// <returns>
         /// A promise of a response to the published event.
         /// </returns>
-        Task<TResponse> PublishAsync<TResponse, TEvent>(TEvent ev) where TEvent : IRequest<TResponse>; 
+        Task<TResponse> PublishAsync<TResponse, TEvent>(TEvent ev, CancellationToken cancellationToken = default(CancellationToken)) where TEvent : IRequest<TResponse>; 
     }
 }
