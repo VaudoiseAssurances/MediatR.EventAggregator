@@ -34,7 +34,7 @@ deploy:
   server: $(repoNuGetPackage)
   artifact: NuGet_pkg
   api_key:
-    secure: uBphca4OZ4WuDCPtfgBWnGvqvQOirDAq+ErQubkiMwUBVnKfETzoMxsNS/ofyTZJ
+    secure: /EtERPHiFz3on6Ayv41+dptgj/s67aAdqR0QvIOhvd2QOXvTKEbIEkjlyTViYT6O
   on:
     branch: develop
 - provider: NuGet
